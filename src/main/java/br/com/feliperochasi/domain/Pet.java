@@ -16,4 +16,16 @@ public class Pet {
         this.cor = cor;
         this.peso = peso;
     }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "tipo='" + tipo + '\'' +
+                ", nome='" + nome + '\'' +
+                ", raca='" + raca + '\'' +
+                ", idade=" + idade +
+                ", cor='" + cor + '\'' +
+                ", peso=" + peso +
+                '}';
+    }
 }

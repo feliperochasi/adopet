@@ -10,4 +10,13 @@ public class Abrigo {
         this.telefone = telefone;
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return "Abrigo{" +
+                "nome='" + nome + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
