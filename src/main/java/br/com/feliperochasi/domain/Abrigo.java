@@ -1,5 +1,7 @@
 package br.com.feliperochasi.domain;
 
+import java.util.Arrays;
+
 public class Abrigo {
     private long id;
     private String nome;
@@ -39,9 +41,11 @@ public class Abrigo {
     @Override
     public String toString() {
         return "Abrigo{" +
-                "nome='" + nome + '\'' +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
                 ", telefone='" + telefone + '\'' +
                 ", email='" + email + '\'' +
+                ", pets=" + Arrays.toString(pets) +
                 '}';
     }
 }

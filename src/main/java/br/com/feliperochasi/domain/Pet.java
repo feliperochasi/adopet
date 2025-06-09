@@ -49,10 +49,12 @@ public class Pet {
         return peso;
     }
 
+
     @Override
     public String toString() {
         return "Pet{" +
-                "tipo='" + tipo + '\'' +
+                "id=" + id +
+                ", tipo='" + tipo + '\'' +
                 ", nome='" + nome + '\'' +
                 ", raca='" + raca + '\'' +
                 ", idade=" + idade +
