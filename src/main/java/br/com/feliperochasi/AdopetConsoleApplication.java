@@ -1,17 +1,11 @@
 package br.com.feliperochasi;
 
-import br.com.feliperochasi.client.ClientHttpConfiguration;
-import br.com.feliperochasi.service.AbrigoService;
-import br.com.feliperochasi.service.PetService;
-
 import java.util.Scanner;
 
 public class AdopetConsoleApplication {
 
     public static void main(String[] args) {
-        ClientHttpConfiguration client = new ClientHttpConfiguration();
-        AbrigoService abrigoService = new AbrigoService(client);
-        PetService petService = new PetService(client);
+        CommandExecutor executor = new CommandExecutor();
         System.out.println("##### BOAS VINDAS AO SISTEMA ADOPET CONSOLE #####");
         try {
             int opcaoEscolhida = 0;
@@ -27,13 +21,13 @@ public class AdopetConsoleApplication {
                 opcaoEscolhida = Integer.parseInt(textoDigitado);
 
                 if (opcaoEscolhida == 1) {
-                    abrigoService.listarAbrigo();
+                    executor.executeCommand(new ListarAbrigoCommand());
                 } else if (opcaoEscolhida == 2) {
-                    abrigoService.cadastrarAbrigo();
+                    executor.executeCommand(new CadastrarAbrigoCommand());
                 } else if (opcaoEscolhida == 3) {
-                    petService.listarPetsDoAbrigo();
+                    executor.executeCommand(new ListarPetsCommand());
                 } else if (opcaoEscolhida == 4) {
-                   petService.importarPetsDoAbrigo();
+                   executor.executeCommand(new ImportarPetsCommand());
                 } else if (opcaoEscolhida == 5) {
                     break;
                 } else {
