@@ -34,6 +34,10 @@ public class Abrigo {
         return email;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public Pet[] getPets() {
         return pets;
     }
