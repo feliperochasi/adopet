@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 
 public class AbrigoServiceTest {
 
-    private final ClientHttpConfiguration client = mock(ClientHttpConfiguration.class);
+    private final ClientHttpConfiguration client = mock(ClientHttpConfiguration.class);//mockar é simular um objeto (NAO FAZ A CHAMADA REAL)
     private final AbrigoService abrigoService = new AbrigoService(client);
     private final HttpResponse<String> response = mock(HttpResponse.class);
     private final Abrigo abrigo = new Abrigo("Teste", "61981880392","abrigo@teste.com");
@@ -27,20 +27,27 @@ public class AbrigoServiceTest {
         String expectedAbrigosCadastrados = "Abrigos cadastrados:";
         String expectedIdNome = "0 - Teste";
 
+        PrintStream originalOut = System.out;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(baos);
-        System.out.println(printStream);
+        System.setOut(printStream);
 
-        when(response.body()).thenReturn("[{"+abrigo.toString()+"}]");
-        when(client.dispararRequiscaoGet(anyString())).thenReturn(response);
+        try {
+            when(response.body()).thenReturn("[{"+abrigo.toString()+"}]");
+            when(client.dispararRequiscaoGet(anyString())).thenReturn(response);
 
-        abrigoService.listarAbrigo();
+            abrigoService.listarAbrigo();
 
-        String[] lines = baos.toString().split(System.lineSeparator());
-        String actualAbrigoCadastrados = lines[0];
-        String actualIdENome = lines[1];
+            printStream.flush();
+            String[] lines = baos.toString().split(System.lineSeparator());
 
-        Assertions.assertEquals(expectedAbrigosCadastrados, actualAbrigoCadastrados);
-        Assertions.assertEquals(expectedIdNome, actualIdENome);
+            String actualAbrigoCadastrados = lines[0];
+            String actualIdENome = lines[1];
+
+            Assertions.assertEquals(expectedAbrigosCadastrados, actualAbrigoCadastrados);
+            Assertions.assertEquals(expectedIdNome, actualIdENome);
+        } finally {
+            System.setOut(originalOut);
+        }
     }
 }
