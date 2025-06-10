@@ -2,5 +2,5 @@ package br.com.feliperochasi;
 
 public interface Command {
 
-    public void execute();
+    void execute();
 }
