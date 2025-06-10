@@ -50,4 +50,31 @@ public class AbrigoServiceTest {
             System.setOut(originalOut);
         }
     }
+
+    @Test
+    public void deveVerificarQuandoNaoHaAbrigo() throws IOException, InterruptedException {
+        abrigo.setId(0L);
+        String expected = "Nao ha abrigos cadastrados";
+
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(baos);
+        System.setOut(printStream);
+
+        try {
+            when(response.body()).thenReturn("[]");
+            when(client.dispararRequiscaoGet(anyString())).thenReturn(response);
+
+            abrigoService.listarAbrigo();
+
+            printStream.flush();
+            String[] lines = baos.toString().split(System.lineSeparator());
+
+            String actual = lines[0];
+
+            Assertions.assertEquals(expected, actual);
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
 }
